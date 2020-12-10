@@ -1,0 +1,22 @@
+<div class="grid">
+    <form  #form="ngForm" (ngSubmit)="createTask(form)">
+      <div class="form-group">
+        <div style="display: flex; margin-bottom: 10px">
+          <label class="col-form-label text-muted" style="margin: 5px 5px 0px 0px; width: 10%;">Название</label>
+          <input class="form-control" type="text" name="name" ngModel required>
+        </div>
+        <div style="display: flex; margin-bottom: 10px">
+          <label class="col-form-label text-muted" style="margin: 5px 5px 0px 0px; width: 10%;">Описание</label>
+          <textarea class="form-control" type="text" style="height: 100px;" name="description" ngModel required>Bishop</textarea>
+        </div>
+        <div style="display: flex; margin-bottom: 10px">
+          <label class="col-form-label text-muted" style="margin: 5px 5px 0px 0px; width: 10%;">Дедлайн</label>
+          <input type="datetime-local" class="form-control" name="deadline" ngModel required>
+        </div>
+        <button type="submit" class="btn btn-outline-success">Добавить</button>
+      </div>
+  </form>
+  <div *ngFor="let task of tasks">
+    <app-task *ngIf="task.isActive" [task]="task" ></app-task>
+  </div>
+</div>

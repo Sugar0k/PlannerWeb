@@ -1,0 +1,48 @@
+<div [ngClass]="['card', status == 'complete' ? 'complete': status == 'expiredTime' ?
+   'expiredTime' : status == 'inProgress' ? 'inProgress' : 'dontComplete']">
+  <form #form="ngForm" (ngSubmit)="doneEdit(form)">
+    <div class="jumbotron">
+      <div *ngIf="!edit">
+        <h1 style="text-align: center">{{task.name}}</h1>
+        <div style="display: flex">
+          <h4 style="width: 50%;">Дедлайн: {{task.deadline | date:'dd.MM.yyyy HH:mm'}}</h4>
+          <h4 *ngIf="task.isDone" style="width: 50%; text-align: right">Дата выполнения: {{task.whenDone  | date:'dd.MM.yyyy HH:mm'}}</h4>
+        </div>
+        <p class="lead">{{task.description}}</p>
+        <p>Дата создания: {{task.dateCreation | date:'dd.MM.yyyy HH:mm'}}</p>
+      </div>
+      <div *ngIf="edit">
+          <label>
+            <input [(ngModel)]="forChangeTask.name" style="text-align: center" name="name" ngModel required>
+          </label>
+          <div style="display: flex">
+            <label style="width: 50%;">Дедлайн:
+              <input [(ngModel)]="forChangeTask.deadline" type="datetime-local" class="form-control" name="deadline" ngModel required>
+            </label>
+            <label *ngIf="forChangeTask.isDone" style="width: 50%; text-align: right">Дата выполнения:
+              <input [(ngModel)]="forChangeTask.whenDone" type="datetime-local" class="form-control" name="whenDone" ngModel required>
+            </label>
+          </div>
+          <div style="">
+            <label>
+              <textarea [(ngModel)]="forChangeTask.description" class="lead" name="description" ngModel required></textarea>
+            </label>
+            <label>
+              Дата создания: <input [(ngModel)]="forChangeTask.dateCreation" type="datetime-local" class="form-control" name="dateCreation" ngModel required>
+            </label>
+            <label>
+              <input [(ngModel)]="forChangeTask.isDone" type="checkbox" name="isDone" ngModel required checked>Выполненно
+            </label>
+          </div>
+      </div>
+    </div>
+    <div>
+      <button type="button" (click)="doneTask()" *ngIf="!task.isDone" class="btn btn-outline-success">Отметить как выполненую</button>
+      <button type="button" (click)="changeTask()" *ngIf="!edit" class="btn btn-outline-success">Изменить таску</button>
+      <button type="submit" *ngIf="edit" class="btn btn-outline-success">Сохранить</button>
+      <button type="button" (click)="cancelEdit()" *ngIf="edit" class="btn btn-outline-delete">Отменить</button>
+      <button type="button" (click)="deleteTask()" class="btn btn-outline-delete" style="float: right; margin: auto">Удалить таску</button>
+    </div>
+  </form>
+</div>
+
